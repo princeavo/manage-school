@@ -34,7 +34,7 @@ class MontantController extends Controller
 
         return response()->json([
             "success"=> true,
-            "data" => new LevelMontantResource($niveaus)
+            "data" => LevelMontantResource::collection($niveaus)
         ]);
 
     }

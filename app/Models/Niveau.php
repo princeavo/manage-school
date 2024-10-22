@@ -12,6 +12,6 @@ class Niveau extends Model
     public $timestamps = false;
 
     public function montants(){
-        return $this->hasMany(Niveau::class);
+        return $this->hasMany(Montant::class);
     }
 }

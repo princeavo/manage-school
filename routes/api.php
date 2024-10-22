@@ -24,14 +24,16 @@ Route::prefix("v2")->group(function(){
             Route::put('update-profile', [AuthController::class, 'updateProfile']);
             Route::post('/logout', [AuthController::class, 'logout']);
             Route::apiResource("ecoles", EcoleController::class)->except(["update"]);
-            Route::apiResource("annees", AnneeController::class)->except(['destroy','update']);
-            Route::get("series",[SerieController::class,"index"]);
-            Route::post("series",[SerieController::class,"store"]);
-            Route::get("niveaux",[NiveauController::class,"index"]);
-            Route::post("niveaux",[NiveauController::class,"store"]);
+            Route::apiResource("annees", AnneeController::class)->except(['destroy','update','index']);
+            //Route::get("niveaux",[NiveauController::class,"index"]);
+            Route::apiResource( "series", SerieController::class)->except(["update","index"]);
+            Route::apiResource("niveaux", NiveauController::class)->except(["update","index"]);
         });
+        Route::get("series",[SerieController::class,"index"]);
+        Route::get("annees",[AnneeController::class,"index"]);
         Route::get("annee-actuelle",[AnneeController::class,"currentYear"]);
         Route::get("niveaux",[NiveauController::class,"index"]);
+        Route::get("getClassesByLevelAndSerie",[ClasseController::class, "getClassesByLevelAndSerie"]);
         Route::prefix("ecole")->group(function () {
             //Route::post('login', [AuthController::class, 'login_ecole']);
             Route::group(['middleware' => ['auth:ecole']], function () {

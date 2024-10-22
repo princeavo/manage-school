@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Annee;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddEleveRequest extends FormRequest
@@ -38,6 +40,17 @@ class AddEleveRequest extends FormRequest
             'adresse_tuteur2' => "required|string|min:4",
             'email_tuteur2' => "nullable|email",
             "classe_id" => "required|exists:classes,id",
+            "annee_exits" => [Rule::in([true])]
+        ];
+    }
+    public function prepareForValidation(){
+        $this->merge([
+            "annee_exits"=> Annee::count() !== 0
+        ]);
+    }
+    public function messages(): array{
+        return [
+            "annee_exits.*" => "Aucune année n'existe donc impossible d'inscrire l'élève"
         ];
     }
 }

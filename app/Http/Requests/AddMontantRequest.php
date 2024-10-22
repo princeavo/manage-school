@@ -49,7 +49,7 @@ class AddMontantRequest extends FormRequest
     public function prepareForvalidation(){
         $this->merge([
             "somme_tranches" => $this->tranche1 + $this->tranche2 + $this->tranche3 - $this->frais_inscription - $this->frais_formation - $this->frais_annexe,
-            "avant_la_rentree" => Annee::where("id",$this->annee_id)->first()->date_debut?->isAfter(now()),
+            "avant_la_rentree" => Annee::where("id",$this->annee_id)->first()?->date_debut?->isAfter(now()),
             "unique_constraint" => Montant::where([
                 ["niveau_id" , $this->niveau_id],
                 ["annee_id" ,$this->annee_id],

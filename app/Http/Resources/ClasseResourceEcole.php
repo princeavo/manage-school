@@ -19,7 +19,8 @@ class ClasseResourceEcole extends JsonResource
             "nom" => $this->nom,
             "niveau" => $this->niveau_1,
             "serie" => $this->serie_1,
-            "effectif_max" => $this->effectif_max
+            "effectif_max" => $this->effectif_max,
+            "eleves" => EleveResource::collection($this->eleves)
         ];
     }
 }
